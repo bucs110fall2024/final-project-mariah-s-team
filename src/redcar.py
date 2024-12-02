@@ -1,4 +1,4 @@
-from src.player import Player
+#from src.player import Player
 #class RedCar(pygame.sprite.Sprite): 
     #def __init__(self, number): 
        # super().__init__()

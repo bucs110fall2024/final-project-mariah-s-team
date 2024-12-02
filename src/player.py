@@ -40,8 +40,6 @@ class Player(pygame.sprite.Sprite):
                     run = False
                     
     def correction(self):
-        width = 640
-        height = 480
         if self.x - self.width / 2 < 0:
             self.x = self.width / 2 
         elif self.x + self.width / 2 > width:
@@ -51,7 +49,7 @@ class Player(pygame.sprite.Sprite):
         elif self.y + self.height / 2 > height:
             self.y = height - self.height / 2
             
-            
+        Player.update()
 
 
 

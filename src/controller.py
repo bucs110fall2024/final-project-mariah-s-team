@@ -7,7 +7,7 @@ from screen import Screen
 width = 640
 height = 480
 
-class Controller:
+class Controller(pygame.sprite.Sprite):
  
   def __init__(self, name):
     self.player = Player()

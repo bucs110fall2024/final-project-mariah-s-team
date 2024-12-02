@@ -18,6 +18,7 @@ class Screen(pygame.sprite.Sprite):
     
     def update(self):
         self.rect.topleft = (self.x, self.y)
+        Screen.update()
         
     def event(self): 
         running = True

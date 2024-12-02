@@ -4,6 +4,7 @@ height = 480
 width = 640
 class Cars(pygame.sprite.Sprite): 
     
+    
     def __init__(self, number): 
         super().__init__()
         if number == 1:
@@ -23,6 +24,10 @@ class Cars(pygame.sprite.Sprite):
         self.size = 'small'
 
     def update(self):
+        bluecar = Cars(1)
+        redcar = Cars(2)
+        car_group = pygame.sprite.Group()
+        car_group.update()
         self.rect.center = (self.x, self.y)
         self.y += self.speed
         
