@@ -1,19 +1,17 @@
 
-:warning: Everything between << >> needs to be replaced (remove << >> after replacing)
 
-# << Project Title >>
-## CS110 Final Project  << Semester, Year >>
+
+# Mariah's Team
+## CS110 Final Project  Fall, 2024
 
 ## Team Members
 
 Mariah Brand
-***
 
 ## Project Description
 
 A game similar to crossy road where the the goal is to get the chicken across the road without it being hit by cars. 
 
-***    
 
 ## GUI Design
 
