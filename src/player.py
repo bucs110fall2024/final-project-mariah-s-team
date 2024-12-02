@@ -1,6 +1,9 @@
 #Rectangle: w, h, pos 
 #surface: contains rect, has image
 import pygame
+import os
+height = 480
+width = 640
 class Player(pygame.sprite.Sprite): 
     def __init__(self,name):
         super().__init__()
@@ -11,7 +14,7 @@ class Player(pygame.sprite.Sprite):
         self.width = 100
         self.height = 50
         self.speed = 4
-        self.player = pygame.image.load(f"/assets/{player}.png") 
+        self.player = pygame.image.load(os.path.join('assets', 'car1.png'))
         self.player = pygame.transform.scale(self.player, self.width, self.height)
         self.image = self.player
         self.rect = self.image.get_rect()
@@ -29,7 +32,7 @@ class Player(pygame.sprite.Sprite):
         elif keys[pygame.K_DOWN]:
             self.rect.y += self.speed
     def draw(self):
-        clock.tick(60)
+        pygame.time.Clock.tick(60)
         running = True
         while running:
             for event in pygame.event.get():

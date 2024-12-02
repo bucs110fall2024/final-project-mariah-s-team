@@ -1,4 +1,5 @@
 import pygame
+import os
 import pygame_menu
 from controller import Controller
 #import your controller
@@ -10,4 +11,4 @@ def main():
     controller.main.loop()
 
 
-main()
+    main()

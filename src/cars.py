@@ -1,14 +1,18 @@
 import pygame
+import os
+height = 480
+width = 640
 class Cars(pygame.sprite.Sprite): 
+    
     def __init__(self, number): 
         super().__init__()
         if number == 1:
             self.x = 198
-            self.image = pygame.image.load(f"/assets/{car2}.png")
+            self.image = pygame.image.load(os.path.join('assets', 'car1.png'))
             self.speed = -4
         else:
             self.x = 460
-            self.image = pygame.image.load(f"/assets/{car1}.png")
+            self.image = pygame.image.load(os.path.join('assets', 'car2.png'))
             self.speed = 4
         
         self.y = height / 2 
