@@ -1,9 +1,9 @@
 import pygame 
 import pygame_menu
-from player import Player
-from cars import Cars
+from src.player import Player
+from src.cars import Cars
 #from src.redcar import RedCar
-from screen import Screen
+from src.screen import Screen
 width = 640
 height = 480
 
@@ -19,11 +19,13 @@ class Controller(pygame.sprite.Sprite):
     #setup pygame data
     
   def mainloop(self):
+    
     running = True
     while running: 
       for event in pygame.event.get():
         if event.type == pygame.QUIT:
-          running = False 
+          running = False
+    Screen.fill((0, 255, 0))
   
   ### below are some sample loop states ###
 
@@ -112,3 +114,4 @@ class Controller(pygame.sprite.Sprite):
       #update data
 
       #redraw
+pygame.quit()

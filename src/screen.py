@@ -6,7 +6,7 @@ width = 640
 class Screen(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.img1 = pygame.image.load(os.path.join('assets', 'Scene'))
+        self.img1 = pygame.image.load(os.path.join('assets', 'Scene')).convert()
         #self.img2 = pygame.image.load(f"/assets/{You_Lose}.png")
         
         self.img1 = pygame.transform.scale(self.img1, (width, height))
@@ -18,7 +18,8 @@ class Screen(pygame.sprite.Sprite):
     
     def update(self):
         self.rect.topleft = (self.x, self.y)
-        Screen.update()
+        Screen.fill((0, 255, 0))
+       # Screen.update()
         
     def event(self): 
         running = True

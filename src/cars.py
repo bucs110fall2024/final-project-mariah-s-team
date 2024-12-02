@@ -9,11 +9,11 @@ class Cars(pygame.sprite.Sprite):
         super().__init__()
         if number == 1:
             self.x = 198
-            self.image = pygame.image.load(os.path.join('assets', 'car1.png'))
+            self.image = pygame.image.load(os.path.join('assets', 'car1.png')).convert()
             self.speed = -4
         else:
             self.x = 460
-            self.image = pygame.image.load(os.path.join('assets', 'car2.png'))
+            self.image = pygame.image.load(os.path.join('assets', 'car2.png')).convert()
             self.speed = 4
         
         self.y = height / 2 
@@ -37,4 +37,6 @@ class Cars(pygame.sprite.Sprite):
         elif self.y + self.height / 2 > 0: 
             self.y = height - self.height / 2 
             self.speed *= -1
-    
+            
+    def draw(self):
+        pass

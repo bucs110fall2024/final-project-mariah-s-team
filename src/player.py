@@ -14,7 +14,7 @@ class Player(pygame.sprite.Sprite):
         self.width = 100
         self.height = 50
         self.speed = 4
-        self.player = pygame.image.load(os.path.join('assets', 'car1.png'))
+        self.player = pygame.image.load(os.path.join('assets', 'car1.png')).convert()
         self.player = pygame.transform.scale(self.player, self.width, self.height)
         self.image = self.player
         self.rect = self.image.get_rect()
