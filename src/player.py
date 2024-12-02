@@ -1,6 +1,6 @@
 #Rectangle: w, h, pos 
 #surface: contains rect, has image
-
+import pygame
 class Player(pygame.sprite.Sprite): 
     def __init__(self,name):
         super().__init__()

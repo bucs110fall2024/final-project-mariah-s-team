@@ -1,7 +1,8 @@
+import pygame
 class Screen(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.img1 = pygame.image.load(f"/assets/{Scene}.png")
+        self.img1 = pygame.image.load(f'assets/Scene')
         #self.img2 = pygame.image.load(f"/assets/{You_Lose}.png")
         
         self.img1 = pygame.transform.scale(self.img1, (width, height))

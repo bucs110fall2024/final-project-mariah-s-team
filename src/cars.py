@@ -1,3 +1,4 @@
+import pygame
 class Cars(pygame.sprite.Sprite): 
     def __init__(self, number): 
         super().__init__()

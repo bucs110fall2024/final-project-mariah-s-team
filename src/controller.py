@@ -1,9 +1,9 @@
 import pygame 
 import pygame_menu
-from src.player import Player
-from src.cars import Cars
+from player import Player
+from cars import Cars
 #from src.redcar import RedCar
-from src.screen import Screen
+from screen import Screen
 
 width = 640
 height = 480
@@ -81,14 +81,14 @@ class Controller:
       pygame.display.update()
       pygame.quit()
 
-  def mad():
+  #def mad():
       #event loop
 
       #update data
 
       #redraw
     
-  def gameoverloop(self):
+  #def gameoverloop(self):
       #event loop
 
       #update data
