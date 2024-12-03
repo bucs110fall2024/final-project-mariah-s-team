@@ -1,5 +1,6 @@
 import pygame 
 import pygame_menu
+import sys
 from src.player import Player
 from src.cars import Cars
 #from src.redcar import RedCar
@@ -76,19 +77,30 @@ class Controller(pygame.sprite.Sprite):
       #redraw
     
   def gameoverloop(self):
-    #if pygame.sprite.spritecollide(player, cars, False):
-      #print("You Lost!")
-          
-    #self.screen.fill('black') 
-      #game_over_text = font.render("Game Over", True, red)
-    #pygame.display.flip()
+# Initialize Pygame
+# Game over flag
+    game_over = False
+# Game loop
+    while not game_over:
+      for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+          pygame.quit()
+          sys.exit()
 
-    font = pygame.font.Font(None, 74)
-    Screen.fill('black') 
-    game_over_text = font.render("Game Over", True, 'red')
-    Screen.blit(game_over_text, (width // 2 - game_over_text.get_width() // 2, height // 2 - game_over_text.get_height() // 2))
-    pygame.display.flip()
-    pygame.time.wait(2000)
+    # Move the obstacle down
+    # Clear the screen
+    
+
+    # Game over screen
+    if game_over:
+      Screen.fill('white')
+      pygame.display.flip()
+      font = pygame.font.Font(None, 74)
+      Screen.fill('black') 
+      game_over_text = font.render("Game Over", True, 'red')
+      Screen.blit(game_over_text, (width // 2 - game_over_text.get_width() // 2, height // 2 - game_over_text.get_height() // 2))
+      pygame.display.flip()
+      pygame.time.wait(2000)
 
 # Function to display play again button
   def play_again_button():
