@@ -14,7 +14,7 @@ class Player(pygame.sprite.Sprite):
         self.x = 50
         self.y = height / 2
         self.size = 'small'
-        self.speed = 3
+        self.speed = 5
         self.width = 100
         self.height = 50
         
@@ -55,11 +55,11 @@ class Car(pygame.sprite.Sprite):
         if number == 1:
             self.x = 198
             self.image = pygame.image.load("assets/car1.png")
-            self.speed = -5
+            self.speed = -4
         else:
             self.x = 460
             self.image = pygame.image.load("assets/car2.png")
-            self.speed = 5
+            self.speed = 4
         
         self.y = height / 2 
         self.width = 100
@@ -80,6 +80,16 @@ class Car(pygame.sprite.Sprite):
         elif self.y + self.height / 2 > height: 
             self.y = height - self.height / 2
             self.speed *= -1
+
+class Screen(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.img = pygame.image.load('assets/Scene.png')
+        self.img = pygame.transform.scale(self.img, (width, height))
+        
+        self.image = self.img 
+        self.x = 0
+        self.y = 0
 
 width = 640
 height = 480
