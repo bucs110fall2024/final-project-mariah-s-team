@@ -1,4 +1,5 @@
 import pygame
+import sys
 import time
 #import os
 #import pygame_menu
@@ -55,8 +56,20 @@ class Player(pygame.sprite.Sprite):
     def checkCollision(self):
         car_check = pygame.sprite.spritecollide(self, car_group, False, pygame.sprite.collide_mask)
         if car_check:
-            window.fill('white')
-        
+            window.fill((0, 0, 0))
+            font = pygame.font.SysFont(None, 55)
+            text = font.render("Game Over", True, (255, 0, 0))
+            window.blit(text, (230, 230))
+    
+            play_again_button = pygame.Rect(300, 300, 200, 50)
+            pygame.draw.rect(window, (0, 255, 0), play_again_button)
+            play_again_text = font.render("Play Again", True, (0, 0, 0))
+            window.blit(play_again_text, (play_again_button.x , play_again_button.y ))
+    
+            pygame.display.flip()
+            return play_again_button
+    
+            
             
 class Car(pygame.sprite.Sprite):
     def __init__(self, number): 
@@ -127,30 +140,30 @@ class Flag(pygame.sprite.Sprite):
         if flag_hit: 
             window.fill('white')
         
-class Explosion(object):
-    def __init__(self):
-        self.costume = 1
-        self.width = 140
-        self.height = 140
-        self.image = pygame.image.load('assets/explosion7.png') #+ str(self.costume) + '.png')
-        self.image = pygame.transform.scale(self.image, (self.width, self.height))
+#class Explosion(object):
+    #def __init__(self):
+      #  self.costume = 1
+       # self.width = 140
+       # self.height = 140
+       # self.image = pygame.image.load('assets/explosion7.png') #+ str(self.costume) + '.png')
+       # self.image = pygame.transform.scale(self.image, (self.width, self.height))
         
-    def explode(self, x, y):
-        x = x - self.width / 2
-        y = y - self.height / 2
+   # def explode(self, x, y):
+     #   x = x - self.width / 2
+      #  y = y - self.height / 2
         
-        DeletePlayer()
+      #  DeletePlayer()
         
-        while self.costume < 9:
-            self.image = pygame.image.load('assets/explosion7.png') #+ str(self.costume) + '.png')
-            self.image = pygame.transform.scale(self.image, (self.width, self.height))
-            window.blit(self.image, (x, y))
-            pygame.display.update()
+      #  while self.costume < 9:
+        #    self.image = pygame.image.load('assets/explosion7.png') #+ str(self.costume) + '.png')
+           # self.image = pygame.transform.scale(self.image, (self.width, self.height))
+          #  window.blit(self.image, (x, y))
+          #  pygame.display.update()
             
-            self.costume += 1
-            time.sleep(0.1)
+          #  self.costume += 1
+          #  time.sleep(0.1)
         
-        DeleteOtherItems()
+       # DeleteOtherItems()
         
             
         
@@ -173,7 +186,28 @@ def DeleteOtherItems():
     flag_group.empty() 
     flags.clear()
         
-#def EndScreen(n):
+def game_loop():
+    game_over = False
+    play_again_button = pygame.Rect(300, 300, 200, 50)
+    while not game_over:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if play_again_button.collidepoint(event.pos):
+                    game_loop()  # Restart the game loop
+
+        window.fill((0, 0, 255))  # Game screen
+        pygame.display.flip()
+        clock.tick(60)
+
+    
+
+game_loop()
+
+    
+
   #  hit = 
   #  if hit:
     #   window.fill('blue')
@@ -208,6 +242,7 @@ flag_group.add(green_flag)
 flags = [green_flag]
 
 explosion = Explosion()
+#endscreen = EndScreen()
 
 #def mainloop(self):
    
