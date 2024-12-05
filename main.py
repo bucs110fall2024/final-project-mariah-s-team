@@ -53,12 +53,12 @@ class Car(pygame.sprite.Sprite):
     def __init__(self, number): 
         super().__init__()
         if number == 1:
-            self.x = 198
-            self.image = pygame.image.load("assets/car1.png")
+            self.x = 190
+            self.image = pygame.image.load("assets/car2.png")
             self.speed = -4
         else:
             self.x = 460
-            self.image = pygame.image.load("assets/car2.png")
+            self.image = pygame.image.load("assets/car1.png")
             self.speed = 4
         
         self.y = height / 2 
@@ -92,7 +92,7 @@ class Screen(pygame.sprite.Sprite):
         self.y = 0
         self.rect = self.image.get_rect()
     def update(self):
-        self.rect.topeleft = (self.x, self.y)
+        self.rect.topleft = (self.x, self.y)
 
 width = 640
 height = 480
