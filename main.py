@@ -90,6 +90,9 @@ class Screen(pygame.sprite.Sprite):
         self.image = self.img 
         self.x = 0
         self.y = 0
+        self.rect = self.image.get_rect()
+    def update(self):
+        self.rect.topeleft = (self.x, self.y)
 
 width = 640
 height = 480
@@ -100,6 +103,11 @@ pygame.init()
 window = pygame.display.set_mode((width, height))
 pygame.display.set_caption('Chicken Crossing: Will the Chicken Make it to the Other Side of the Road?')
 clock = pygame.time.Clock()
+
+bg = Screen()
+screen_group = pygame.sprite.Group()
+screen_group.add(bg)
+
 player = Player()
 player_group = pygame.sprite.Group()
 player_group.add(player)
@@ -116,13 +124,13 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: 
           running = False 
-    window.fill((0,255,0))
+    screen_group.draw(window)
     
     player_group.draw(window)
     car_group.draw(window)
     player_group.update()
     car_group.update()
-    
+    screen_group.update()
     pygame.display.update()
     
 pygame.quit()
