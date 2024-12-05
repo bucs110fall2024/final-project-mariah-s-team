@@ -1,6 +1,8 @@
 import pygame
-import sys
 import time
+import sys
+import os
+#import time
 #import os
 #import pygame_menu
 #from src.player import Player
@@ -8,6 +10,8 @@ import time
 #import your controller
 #width = 640
 #height = 480
+
+
 
 class Player(pygame.sprite.Sprite): 
     def __init__(self):
@@ -31,7 +35,7 @@ class Player(pygame.sprite.Sprite):
         self.correction()
         self.checkCollision()
         self.rect.center = (self.x, self.y)
-        keys = pygame.key.get_pressed()
+        #keys = pygame.key.get_pressed()
         
     def movement(self):
         keys = pygame.key.get_pressed()
@@ -57,19 +61,11 @@ class Player(pygame.sprite.Sprite):
         car_check = pygame.sprite.spritecollide(self, car_group, False, pygame.sprite.collide_mask)
         if car_check:
             window.fill((0, 0, 0))
-            font = pygame.font.SysFont(None, 55)
-            text = font.render("Game Over", True, (255, 0, 0))
-            window.blit(text, (230, 230))
-    
-            play_again_button = pygame.Rect(300, 300, 200, 50)
-            pygame.draw.rect(window, (0, 255, 0), play_again_button)
-            play_again_text = font.render("Play Again", True, (0, 0, 0))
-            window.blit(play_again_text, (play_again_button.x , play_again_button.y ))
-    
-            pygame.display.flip()
-            return play_again_button
-    
+            font = pygame.font.SysFont(None, 35)
+            text = font.render("You Lose: Try Again Next Time!", True, (255, 0, 0))
+            window.blit(text, (170, 230))
             
+                     
             
 class Car(pygame.sprite.Sprite):
     def __init__(self, number): 
@@ -95,6 +91,7 @@ class Car(pygame.sprite.Sprite):
         self.movement()
         self.rect.center = (self.x, self.y)
     def movement(self):
+      
         self.y += self.speed
         
         if self.y - self.height / 2 < 0:
@@ -103,6 +100,9 @@ class Car(pygame.sprite.Sprite):
         elif self.y + self.height / 2 > height: 
             self.y = height - self.height / 2
             self.speed *= -1
+        collision = pygame.sprite.spritecollideany(self, player_group)
+        while collision:
+            False
 
 class Screen(pygame.sprite.Sprite):
     def __init__(self):
@@ -138,90 +138,13 @@ class Flag(pygame.sprite.Sprite):
         global SCORE, player
         flag_hit = pygame.sprite.spritecollide(self, player_group, False, pygame.sprite.collide_mask)
         if flag_hit: 
-            window.fill('white')
-        
-#class Explosion(object):
-    #def __init__(self):
-      #  self.costume = 1
-       # self.width = 140
-       # self.height = 140
-       # self.image = pygame.image.load('assets/explosion7.png') #+ str(self.costume) + '.png')
-       # self.image = pygame.transform.scale(self.image, (self.width, self.height))
-        
-   # def explode(self, x, y):
-     #   x = x - self.width / 2
-      #  y = y - self.height / 2
-        
-      #  DeletePlayer()
-        
-      #  while self.costume < 9:
-        #    self.image = pygame.image.load('assets/explosion7.png') #+ str(self.costume) + '.png')
-           # self.image = pygame.transform.scale(self.image, (self.width, self.height))
-          #  window.blit(self.image, (x, y))
-          #  pygame.display.update()
+            window.fill('blue')
+            font = pygame.font.SysFont(None, 55)
+            text = font.render("You Win! Great Job!", True, ('pink'))
+            window.blit(text, (170, 230))
+            pygame.display.flip()
+            clock.tick(60)
             
-          #  self.costume += 1
-          #  time.sleep(0.1)
-        
-       # DeleteOtherItems()
-        
-            
-        
-def DeletePlayer():
-    global player
-    
-    player.kill()
-    screen_group.draw(window)
-    car_group.draw(window)
-    flag_group.draw(window)
-    
-    screen_group.update(window)
-    car_group.update(window)
-    flag_group.update(window)
-    
-    pygame.display.update()
-    
-def DeleteOtherItems():
-    car_group.empty()
-    flag_group.empty() 
-    flags.clear()
-        
-def game_loop():
-    game_over = False
-    play_again_button = pygame.Rect(300, 300, 200, 50)
-    while not game_over:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if play_again_button.collidepoint(event.pos):
-                    game_loop()  # Restart the game loop
-
-        window.fill((0, 0, 255))  # Game screen
-        pygame.display.flip()
-        clock.tick(60)
-    while True:
-        self.checkCollision()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if play_again_button.collidepoint(event.pos):
-                    game_loop()  # Restart the game loop
-
-        clock.tick(60)
-
-    
-
-
-
-    
-
-  #  hit = 
-  #  if hit:
-    #   window.fill('blue')
         
 
 width = 640
@@ -252,13 +175,13 @@ flag_group = pygame.sprite.Group()
 flag_group.add(green_flag)
 flags = [green_flag]
 
-#explosion = Explosion()
-#endscreen = EndScreen()
+
 
 #def mainloop(self):
    
 running = True 
 while running: 
+   
     clock.tick(60)
     for event in pygame.event.get():
         if event.type == pygame.QUIT: 
