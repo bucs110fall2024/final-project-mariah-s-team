@@ -201,10 +201,21 @@ def game_loop():
         window.fill((0, 0, 255))  # Game screen
         pygame.display.flip()
         clock.tick(60)
+    while True:
+        self.checkCollision()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if play_again_button.collidepoint(event.pos):
+                    game_loop()  # Restart the game loop
+
+        clock.tick(60)
 
     
 
-game_loop()
+
 
     
 
@@ -241,7 +252,7 @@ flag_group = pygame.sprite.Group()
 flag_group.add(green_flag)
 flags = [green_flag]
 
-explosion = Explosion()
+#explosion = Explosion()
 #endscreen = EndScreen()
 
 #def mainloop(self):
@@ -265,6 +276,7 @@ while running:
     flag_group.update()
     
     screen_group.update()
+    
     pygame.display.update()
     
 pygame.quit()
