@@ -24,16 +24,8 @@ class Player(pygame.sprite.Sprite):
         self.width = 100
         self.height = 50
         
-        try:
-            self.player = pygame.image.load("assets/player.png")
-            self.player = pygame.transform.scale(self.player, (self.width, self.height))
-        except pygame.error as e:
-            print("Error loading player image:", e)
-            pygame.quit()
-            sys.exit()
-        
-        #self.player = pygame.image.load("assets/player.png")
-        #self.player = pygame.transform.scale(self.player, (self.width, self.height))
+        self.player = pygame.image.load("assets/player.png")
+        self.player = pygame.transform.scale(self.player, (self.width, self.height))
         self.image = self.player
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
@@ -41,7 +33,7 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.movement()
         self.correction()
-        #self.checkCollision()
+        self.checkCollision()
         self.rect.center = (self.x, self.y)
         #keys = pygame.key.get_pressed()
         
@@ -64,16 +56,14 @@ class Player(pygame.sprite.Sprite):
             self.y = self.height / 2 
         elif self.y + self.height / 2 > height:
             self.y = height - self.height / 2
-    
-    
-    #game_over = False    
+            
     def checkCollision(self):
         car_check = pygame.sprite.spritecollide(self, car_group, False, pygame.sprite.collide_mask)
         if car_check:
-            # Handle collision (e.g., game over)
-            return True
-        return False
-            
+            window.fill((0, 0, 0))
+            font = pygame.font.SysFont(None, 35)
+            text = font.render("You Lose: Try Again Next Time!", True, (255, 0, 0))
+            window.blit(text, (170, 230))
             
                      
             
@@ -82,23 +72,12 @@ class Car(pygame.sprite.Sprite):
         super().__init__()
         if number == 1:
             self.x = 190
-            try:
-                self.image = pygame.image.load("assets/car2.png")
-            except pygame.error as e:
-                print("Error loading car2 image:", e)
-                pygame.quit()
-                sys.exit()
+            self.image = pygame.image.load("assets/car2.png")
             self.speed = -4
         else:
             self.x = 460
-            try:
-                self.image = pygame.image.load("assets/car1.png")
-            except pygame.error as e:
-                print("Error loading car1 image:", e)
-                pygame.quit()
-                sys.exit()
+            self.image = pygame.image.load("assets/car1.png")
             self.speed = 4
-
         
         self.y = height / 2 
         self.width = 100
@@ -135,7 +114,6 @@ class Screen(pygame.sprite.Sprite):
         self.x = 0
         self.y = 0
         self.rect = self.image.get_rect()
-        
     def update(self):
         self.rect.topleft = (self.x, self.y)
 
@@ -145,6 +123,7 @@ class Flag(pygame.sprite.Sprite):
         self.image = pygame.image.load('assets/green flag.png')
         self.visable = True
         self.x = 580
+        
         self.y = height / 2
         self.image = pygame.transform.scale2x(self.image)
         self.rect = self.image.get_rect()
@@ -156,7 +135,7 @@ class Flag(pygame.sprite.Sprite):
             self.rect.center = (self.x, self.y)
             
     def collision(self):
-        #global SCORE, player
+        global SCORE, player
         flag_hit = pygame.sprite.spritecollide(self, player_group, False, pygame.sprite.collide_mask)
         if flag_hit: 
             window.fill('blue')
@@ -166,53 +145,7 @@ class Flag(pygame.sprite.Sprite):
             pygame.display.flip()
             clock.tick(60)
             
-class Game:
-    def __init__(self):
-        self.isGameOver = False
-        self.isGameWon = False
         
-    def checkCollision(self):
-        # Check if player collides with any car
-        car_check = pygame.sprite.spritecollide(player, car_group, False, pygame.sprite.collide_mask)
-        if car_check:
-            self.isGameOver = True
-        # Check if player reaches the flag
-        flag_check = pygame.sprite.spritecollide(player, flag_group, False, pygame.sprite.collide_mask)
-        if flag_check:
-            self.isGameWon = True
-
-    def displayLoseScreen(self):
-        window.fill((0, 0, 0))
-        font = pygame.font.SysFont(None, 35)
-        text = font.render("You Lose: Try Again Next Time!", True, (255, 0, 0))
-        window.blit(text, (170, 230))
-
-    def displayWinScreen(self):
-        window.fill('blue')
-        font = pygame.font.SysFont(None, 55)
-        text = font.render("You Win! Great Job!", True, ('pink'))
-        window.blit(text, (170, 230))
-
-    def update(self):
-        self.checkCollision()
-        if self.isGameOver:
-            self.displayLoseScreen()
-        elif self.isGameWon:
-            self.displayWinScreen()
-        else:
-            self.updateGame()
-            self.renderGame()
-
-    def updateGame(self):
-        # Update game elements like cars, player, etc.
-        pass
-
-    def renderGame(self):
-        # This function can be used for rendering active game elements
-        print("Game is running...")
-
-
-
 
 width = 640
 height = 480
@@ -227,8 +160,6 @@ clock = pygame.time.Clock()
 bg = Screen()
 screen_group = pygame.sprite.Group()
 screen_group.add(bg)
-
-game = Game()
 
 player = Player()
 player_group = pygame.sprite.Group()
@@ -248,34 +179,30 @@ flags = [green_flag]
 
 #def mainloop(self):
    
- #Main Game Loop (unchanged except calling `game.update()`)
-# Main Game Loop
-running = True
-print("Game started")  # Debugging print to ensure game has started
-while running:
+running = True 
+while running: 
+   
     clock.tick(60)
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-    game.update()
-    car_group.update()
-    player_group.update()
-    flag_group.update()
-    screen_group.update()
-
+        if event.type == pygame.QUIT: 
+          running = False 
     screen_group.draw(window)
+    
+    
     car_group.draw(window)
     player_group.draw(window)
     flag_group.draw(window)
-
+    
+    
+    car_group.update()
+    player_group.update()
+    flag_group.update()
+    
+    screen_group.update()
+    
     pygame.display.update()
-
-    if game.isGameOver or game.isGameWon:
-        break
-
+    
 pygame.quit()
-sys.exit()
 
 #def main():
     
