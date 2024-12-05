@@ -55,7 +55,8 @@ class Player(pygame.sprite.Sprite):
     def checkCollision(self):
         car_check = pygame.sprite.spritecollide(self, car_group, False, pygame.sprite.collide_mask)
         if car_check:
-            explosion.explode(self.x, self.y)
+            window.fill('white')
+        
             
 class Car(pygame.sprite.Sprite):
     def __init__(self, number): 
@@ -121,7 +122,7 @@ class Flag(pygame.sprite.Sprite):
             self.rect.center = (self.x, self.y)
             
     def collision(self):
-        #global SCORE, player
+        global SCORE, player
         flag_hit = pygame.sprite.spritecollide(self, player_group, False, pygame.sprite.collide_mask)
         if flag_hit: 
             window.fill('white')
@@ -131,7 +132,7 @@ class Explosion(object):
         self.costume = 1
         self.width = 140
         self.height = 140
-        self.image = pygame.image.load('assets/explosion' + str(self.costume) + '.png')
+        self.image = pygame.image.load('assets/explosion7.png') #+ str(self.costume) + '.png')
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
         
     def explode(self, x, y):
@@ -141,7 +142,7 @@ class Explosion(object):
         DeletePlayer()
         
         while self.costume < 9:
-            self.image = pygame.image.load('assets/explosion' + str(self.costume) + '.png')
+            self.image = pygame.image.load('assets/explosion7.png') #+ str(self.costume) + '.png')
             self.image = pygame.transform.scale(self.image, (self.width, self.height))
             window.blit(self.image, (x, y))
             pygame.display.update()
@@ -172,8 +173,11 @@ def DeleteOtherItems():
     flag_group.empty() 
     flags.clear()
         
+#def EndScreen(n):
+  #  hit = 
+  #  if hit:
+    #   window.fill('blue')
         
-
 
 width = 640
 height = 480
