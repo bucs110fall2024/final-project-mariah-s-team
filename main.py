@@ -1,4 +1,5 @@
 import pygame
+import time
 #import os
 #import pygame_menu
 #from src.player import Player
@@ -22,10 +23,12 @@ class Player(pygame.sprite.Sprite):
         self.player = pygame.transform.scale(self.player, (self.width, self.height))
         self.image = self.player
         self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
 
     def update(self):
         self.movement()
         self.correction()
+        self.checkCollision()
         self.rect.center = (self.x, self.y)
         keys = pygame.key.get_pressed()
         
@@ -49,6 +52,11 @@ class Player(pygame.sprite.Sprite):
         elif self.y + self.height / 2 > height:
             self.y = height - self.height / 2
             
+    def checkCollision(self):
+        car_check = pygame.sprite.spritecollide(self, car_group, False, pygame.sprite.collide_mask)
+        if car_check:
+            explosion.explode(self.x, self.y)
+            
 class Car(pygame.sprite.Sprite):
     def __init__(self, number): 
         super().__init__()
@@ -67,6 +75,7 @@ class Car(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
         self.rect = self.image.get_rect()
         self.size = 'small'
+        self.mask = pygame.mask.from_surface(self.image)
         
     def update(self):
         self.movement()
@@ -94,6 +103,78 @@ class Screen(pygame.sprite.Sprite):
     def update(self):
         self.rect.topleft = (self.x, self.y)
 
+class Flag(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load('assets/green flag.png')
+        self.visable = True
+        self.x = 580
+        
+        self.y = height / 2
+        self.image = pygame.transform.scale2x(self.image)
+        self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
+        
+    def update(self):
+        if self.visable:
+            self.collision() 
+            self.rect.center = (self.x, self.y)
+            
+    def collision(self):
+        #global SCORE, player
+        flag_hit = pygame.sprite.spritecollide(self, player_group, False, pygame.sprite.collide_mask)
+        if flag_hit: 
+            window.fill('white')
+        
+class Explosion(object):
+    def __init__(self):
+        self.costume = 1
+        self.width = 140
+        self.height = 140
+        self.image = pygame.image.load('assets/explosion' + str(self.costume) + '.png')
+        self.image = pygame.transform.scale(self.image, (self.width, self.height))
+        
+    def explode(self, x, y):
+        x = x - self.width / 2
+        y = y - self.height / 2
+        
+        DeletePlayer()
+        
+        while self.costume < 9:
+            self.image = pygame.image.load('assets/explosion' + str(self.costume) + '.png')
+            self.image = pygame.transform.scale(self.image, (self.width, self.height))
+            window.blit(self.image, (x, y))
+            pygame.display.update()
+            
+            self.costume += 1
+            time.sleep(0.1)
+        
+        DeleteOtherItems()
+        
+            
+        
+def DeletePlayer():
+    global player
+    
+    player.kill()
+    screen_group.draw(window)
+    car_group.draw(window)
+    flag_group.draw(window)
+    
+    screen_group.update(window)
+    car_group.update(window)
+    flag_group.update(window)
+    
+    pygame.display.update()
+    
+def DeleteOtherItems():
+    car_group.empty()
+    flag_group.empty() 
+    flags.clear()
+        
+        
+
+
 width = 640
 height = 480
 
@@ -116,6 +197,14 @@ car1 = Car(1)
 car2 = Car(2)
 car_group = pygame.sprite.Group()
 car_group.add(car1, car2)
+
+green_flag = Flag()
+flag_group = pygame.sprite.Group()
+flag_group.add(green_flag)
+flags = [green_flag]
+
+explosion = Explosion()
+
 #def mainloop(self):
    
 running = True 
@@ -126,18 +215,19 @@ while running:
           running = False 
     screen_group.draw(window)
     
-    player_group.draw(window)
+    
     car_group.draw(window)
-    player_group.update()
+    player_group.draw(window)
+    flag_group.draw(window)
+    
+    
     car_group.update()
+    player_group.update()
+    flag_group.update()
+    
     screen_group.update()
     pygame.display.update()
     
-pygame.quit()
-   
-    
-
-      
 pygame.quit()
 
 #def main():
