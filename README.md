@@ -42,10 +42,10 @@ A game similar to crossy road where the the goal is to get the chicken across th
 
 ### Classes
 
-Player() :
-Screen() :
-Car() :
-Flag() :
+Player() : Creates player object as well as initalizing movement and collision with cars resulting in 'you lose' screen. 
+Screen() : Creates screen and stops player movement when collided with end of the screen
+Car() : Creats 2 car objects as well as initializing automatic movement 
+Flag() : Flag object created to act as collision that results in 'you win' screen
 
 - << You should have a list of each of your classes with a description >>
 
