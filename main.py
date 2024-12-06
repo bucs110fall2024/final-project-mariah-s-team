@@ -1,41 +1,32 @@
 import pygame
-import time
-import sys
-import os
-#import time
-#import os
-#import pygame_menu
-#from src.player import Player
 #from src.controller import Controller
-#import your controller
-#width = 640
-#height = 480
 
-
+width = 640
+height = 480
 
 class Player(pygame.sprite.Sprite): 
     def __init__(self):
-        super().__init__()
+         super().__init__()
         
-        self.x = 50
-        self.y = height / 2
-        self.size = 'small'
-        self.speed = 5
-        self.width = 100
-        self.height = 50
+         self.x = 50
+         self.y = height / 2
+         self.size = 'small'
+         self.speed = 5
+         self.width = 100
+         self.height = 50
         
-        self.player = pygame.image.load("assets/player.png")
-        self.player = pygame.transform.scale(self.player, (self.width, self.height))
-        self.image = self.player
-        self.rect = self.image.get_rect()
-        self.mask = pygame.mask.from_surface(self.image)
+         self.player = pygame.image.load("assets/player.png")
+         self.player = pygame.transform.scale(self.player, (self.width, self.height))
+         self.image = self.player
+         self.rect = self.image.get_rect()
+         self.mask = pygame.mask.from_surface(self.image)
 
     def update(self):
-        self.movement()
-        self.correction()
-        self.checkCollision()
-        self.rect.center = (self.x, self.y)
-        #keys = pygame.key.get_pressed()
+         self.movement()
+         self.correction()
+         self.checkCollision()
+         self.rect.center = (self.x, self.y)
+         keys = pygame.key.get_pressed()
         
     def movement(self):
         keys = pygame.key.get_pressed()
@@ -90,6 +81,7 @@ class Car(pygame.sprite.Sprite):
     def update(self):
         self.movement()
         self.rect.center = (self.x, self.y)
+        
     def movement(self):
         
         self.y += self.speed
@@ -101,8 +93,8 @@ class Car(pygame.sprite.Sprite):
             self.y = height - self.height / 2
             self.speed *= -1
         #collision = pygame.sprite.spritecollideany(self, player_group)
-        #while collision:
-           # False
+#         #while collision:
+#            # False
 
 class Screen(pygame.sprite.Sprite):
     def __init__(self):
@@ -177,7 +169,7 @@ flags = [green_flag]
 
 
 
-#def mainloop(self):
+# #def mainloop(self):
    
 running = True 
 while running: 
@@ -185,7 +177,7 @@ while running:
     clock.tick(60)
     for event in pygame.event.get():
         if event.type == pygame.QUIT: 
-          running = False 
+           running = False 
     screen_group.draw(window)
     
     
@@ -204,26 +196,19 @@ while running:
     
 pygame.quit()
 
-#def main():
-    
-    #pygame.init()
-    
-   # controller = Controller()
-    #controller.mainloop()
-    
-    #running = True
-    #while running: 
-      #  for event in pygame.event.get():
-        #    if event.type == pygame.QUIT:
-              #  running = False
-        #window.fill((0, 255, 0))    
-        #pygame.display.update()
-          
-    #pygame.quit()
-        
+#import pygame
+#from controller import GameController
 
+# Game setup
+# width = 640
+# height = 480
+# pygame.init()
 
+# window = pygame.display.set_mode((width, height))
+# pygame.display.set_caption('Chicken Crossing: Will the Chicken Make it to the Other Side of the Road?')
 
-        # show display
-    
-#main()
+# # Initialize the game controller
+# controller = Controller(width, height, window)
+
+# # Start the game
+# controller.start()
